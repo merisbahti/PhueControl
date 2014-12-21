@@ -42,7 +42,7 @@ cs = Data.ByteString.Lazy.pack . map c2w
 
 lights     = simpleHTTP (getRequest $ apiBaseUrl ++ "lights") >>= getResponseBody >>= return .  cs
 apiBaseUrl = "http://192.168.2.13/api/1167c7272c58f39f20e271172bbe1f8f/"
-currStatus = lights >>= return . decode :: IO (Maybe (Map String Light))
+currStatus = fmap decode lights :: IO (Maybe (Map String Light))
 {-
 This is how you would get the status for light #1:
   m = do 
